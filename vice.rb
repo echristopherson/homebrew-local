@@ -7,6 +7,7 @@ class Vice < Formula
   revision 1
 
   option 'with-sdl', 'Use SDL instead of Cocoa user interface'
+  option 'with-memmap', 'Use memmap support (for monitor)'
 
   depends_on 'pkg-config' => :build
   depends_on 'jpeg'
@@ -43,6 +44,11 @@ class Vice < Formula
     else
       configure_options << '--with-cocoa'
     end
+
+    if build.with? 'memmap'
+      configure_options << ' --with-memmap'
+    end
+
     system "./configure", *configure_options
     system "make"
     system "make bindist"
