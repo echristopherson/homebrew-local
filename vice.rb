@@ -58,7 +58,12 @@ class Vice < Formula
       configure_options << " --with-memmap"
     end
 
-    system "./configure", *configure_options
+    if build.head?
+      system "./autogen.sh", *configure_options
+    else
+      system "./configure", *configure_options
+    end
+
     system "make"
     system "make", "bindist"
     prefix.install Dir["vice-macosx-*/*"]
