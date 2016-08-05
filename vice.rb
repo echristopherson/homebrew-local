@@ -32,7 +32,7 @@ class Vice < Formula
   def install
     # Call autogen first, since we might be replacing text in configure later
     if build.head?
-      system "./autogen.sh", *configure_options
+      system "./autogen.sh"
     end
 
     # Use Cocoa or SDL instead of X
