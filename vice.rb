@@ -30,6 +30,11 @@ class Vice < Formula
   end
 
   def install
+    # Call autogen first, since we might be replacing text in configure later
+    if build.head?
+      system "./autogen.sh", *configure_options
+    end
+
     # Use Cocoa or SDL instead of X
     # Use a static lame, otherwise Vice is hard-coded to look in
     # /opt for the library.
@@ -58,12 +63,7 @@ class Vice < Formula
       configure_options << " --with-memmap"
     end
 
-    if build.head?
-      system "./autogen.sh", *configure_options
-    else
-      system "./configure", *configure_options
-    end
-
+    system "./configure", *configure_options
     system "make"
     system "make", "bindist"
     prefix.install Dir["vice-macosx-*/*"]
