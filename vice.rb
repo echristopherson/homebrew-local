@@ -45,15 +45,20 @@ class Vice < Formula
       configure_options << '--with-cocoa'
     end
 
-    if build.with? 'memmap'
-      configure_options << ' --with-memmap'
-    end
-
     system "./configure", *configure_options
     system "make"
     system "make bindist"
     prefix.install Dir['vice-macosx-*/*']
     bin.install_symlink Dir[prefix/'tools/*']
+
+    if build.with? 'memmap'
+      configure_options << ' --enable-memmap' << '--program-suffix' << '-memmap'
+
+      system "./configure", *configure_options
+      system "make"
+      system "make bindist"
+      prefix.install Dir['vice-macosx-*/*']
+      bin.install_symlink Dir[prefix/'tools/*']
   end
 
   def caveats
