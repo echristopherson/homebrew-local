@@ -6,6 +6,8 @@ class Vice < Formula
   sha1 '719aa96cc72e7578983fadea1a31c21898362bc7'
   revision 1
 
+  head 'svn://svn.code.sf.net/p/vice-emu/code/trunk/vice'
+
   option 'with-sdl', 'Use SDL instead of Cocoa user interface'
   option 'with-memmap', 'Use memmap support (for monitor)'
 
