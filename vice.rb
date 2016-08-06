@@ -19,6 +19,8 @@ class Vice < Formula
   end
 
   depends_on "pkg-config" => :build
+  depends_on "automake" => :build
+  depends_on "autoconf" => :build
   depends_on "jpeg"
   depends_on "libpng"
   depends_on "giflib"
