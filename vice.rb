@@ -52,8 +52,6 @@ class Vice < Formula
         configure.gsub! "/Library/Frameworks/SDL.framework/Headers", "/usr/local/include/SDL"
         configure.gsub! "-framework SDL", "-lSDL"
       end
-      # Upstream forgot to point this to its new location?
-      inreplace "src/arch/sdl/archdep_unix.c", '#include "../unix/macosx/platform_macosx.c"', '#include "../../platform/platform_macosx.c"'
     else
       configure_options << "--with-cocoa"
     end
