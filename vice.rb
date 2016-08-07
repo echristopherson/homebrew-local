@@ -42,18 +42,25 @@ class Vice < Formula
     # /opt for the library.
     configure_options = [ "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--without-x",
                           "--enable-static-lame" ]
+    configure_options += "--without-x" if OS.mac?
+
     if build.with? "sdl"
       configure_options << "--enable-sdlui" << "--with-sdlsound"
       # Upstream source assumes presence of
       # /Library/Frameworks/SDL.framework/Headers
-      inreplace "configure" do |configure|
-        configure.gsub! "/Library/Frameworks/SDL.framework/Headers", "/usr/local/include/SDL"
-        configure.gsub! "-framework SDL", "-lSDL"
+      if OS.mac?
+        inreplace "configure" do |configure|
+          configure.gsub! "/Library/Frameworks/SDL.framework/Headers", "/usr/local/include/SDL"
+          configure.gsub! "-framework SDL", "-lSDL"
+        end
       end
     else
-      configure_options << "--with-cocoa"
+      if OS.mac?
+        configure_options << "--with-cocoa"
+      else
+        configure_options << "--enable-gnomeui"
+      end
     end
 
     if build.with? "memmap"
@@ -62,13 +69,19 @@ class Vice < Formula
 
     system "./configure", *configure_options
     system "make"
-    system "make", "bindist"
-    prefix.install Dir["vice-macosx-*/*"]
-    bin.install_symlink Dir[prefix/"tools/*"]
+    if OS.mac?
+      system "make", "bindist"
+      prefix.install Dir["vice-macosx-*/*"]
+      bin.install_symlink Dir[prefix/"tools/*"]
+    else
+      system "make", "install"
+    end
   end
 
-  def caveats; <<-EOS.undent
-    Cocoa apps for these emulators have been installed to #{prefix}.
-  EOS
+  if OS.mac?
+    def caveats; <<-EOS.undent
+      Cocoa apps for these emulators have been installed to #{prefix}.
+    EOS
+    end
   end
 end
