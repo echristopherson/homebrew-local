@@ -43,10 +43,7 @@ class Vice < Formula
     configure_options = [ "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--without-x",
-                          "--enable-static-lame",
-                          # VICE can't compile against FFMPEG newer than 0.11:
-                          # https://sourceforge.net/p/vice-emu/bugs/341/
-                          "--disable-ffmpeg" ]
+                          "--enable-static-lame" ]
     if build.with? "sdl"
       configure_options << "--enable-sdlui" << "--with-sdlsound"
       # Upstream source assumes presence of
