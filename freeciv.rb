@@ -3,7 +3,8 @@ require 'formula'
 class Freeciv < Formula
   homepage 'http://freeciv.wikia.com'
   url 'http://downloads.sourceforge.net/project/freeciv/Freeciv%202.3/2.3.1/freeciv-2.3.1.tar.bz2'
-  sha1 '9d9ee9f48f4c945fc6525139d340443d5a25aac4'
+  # TODO: change to sha256
+  #sha1 '9d9ee9f48f4c945fc6525139d340443d5a25aac4'
   head 'svn://svn.gna.org/svn/freeciv/trunk'
 
   option 'disable-nls', 'Disable NLS support'
