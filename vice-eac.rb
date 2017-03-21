@@ -58,7 +58,7 @@ class ViceEac < Formula
 
     # Fix undefined symbol errors for _Gestalt, _VDADecoderCreate, _iconv
     # among others.
-    ENV["LIBS"] = "-framework CoreServices -framework VideoDecodeAcceleration -liconv"
+    ENV["LIBS"] = "-framework CoreServices -framework VideoDecodeAcceleration -framework CoreVideo -liconv"
 
     # Use Cocoa instead of X
     # Use a static lame, otherwise Vice is hard-coded to look in
