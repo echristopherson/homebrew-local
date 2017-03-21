@@ -58,8 +58,8 @@ class Vice < Formula
     # /opt for the library.
     configure_options = [ "--disable-debug", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
-                          "--enable-static-ffmpeg"
-                          "--enable-static-lame" ]
+                          "--enable-static-ffmpeg",
+                          "--enable-static-lame", ]
     configure_options << "--without-x" if OS.mac?
 
     if build.with? "sdl"
