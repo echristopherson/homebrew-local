@@ -1,4 +1,4 @@
-class Vice < Formula
+class ViceEac < Formula
   desc "Versatile Commodore Emulator"
   homepage "https://vice-emu.sourceforge.io/"
   url "https://downloads.sourceforge.net/project/vice-emu/releases/vice-3.0.tar.gz"
