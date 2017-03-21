@@ -49,6 +49,13 @@ class ViceEac < Formula
     ENV.prepend_path "PATH", buildpath/"vendor/make/bin"
     ENV.refurbish_args # since "make" won't be the shim
 
+    # Call autogen first, since we might be replacing text in configure later
+    # (TODO: that was my old note for this block; but now it appears that I
+    # always need to run autogen.sh when building from HEAD.)
+    if build.head?
+      system "./autogen.sh"
+    end
+
     # Fix undefined symbol errors for _Gestalt, _VDADecoderCreate, _iconv
     # among others.
     ENV["LIBS"] = "-framework CoreServices -framework VideoDecodeAcceleration -liconv"
