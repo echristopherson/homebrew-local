@@ -56,9 +56,11 @@ class ViceEac < Formula
       system "./autogen.sh"
     end
 
-    # Fix undefined symbol errors for _Gestalt, _VDADecoderCreate, _iconv
-    # among others.
-    ENV["LIBS"] = "-framework CoreServices -framework VideoDecodeAcceleration -framework CoreVideo -liconv"
+    if OS.mac?
+      # Fix undefined symbol errors for _Gestalt, _VDADecoderCreate, _iconv
+      # among others.
+      ENV["LIBS"] = "-framework CoreServices -framework VideoDecodeAcceleration -framework CoreVideo -liconv"
+    end
 
     # Use Cocoa instead of X
     # Use a static lame, otherwise Vice is hard-coded to look in
